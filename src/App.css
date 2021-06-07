@@ -10,7 +10,7 @@ html, body {
 .grid-container {
   display: grid;
   grid-template-columns: 50px auto 50px;
-  grid-template-rows: 80px 40px auto;
+  grid-template-rows: 80px 40px auto 10px;
   grid-template-areas:
   "h h h"
   ". . ."
@@ -96,8 +96,14 @@ hr {
 
 @media only screen and (max-width: 480px) {
   .observationgrid-container {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     grid-auto-rows: auto;
+  }
+
+  .grid-container {
+    grid-template-columns: auto;
+    grid-template-rows: 80px 40px auto;  
+
   }
 }
 
@@ -178,9 +184,15 @@ hr {
 
 .page-number {
   margin: 1em;
+  color: #4f3816;
 }
 
 .page-button {
    border: none;
    padding: 1em;
+   color: #4f3816;
+}
+
+.page-button:disabled {
+  visibility: hidden;
 }
