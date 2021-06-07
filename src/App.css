@@ -1,38 +1,152 @@
-.App {
+html, body {
+  padding: 20px;
+  margin: 0;
+  background-color: #FAFFF7;
+  font-family: Merriweather, serif;
+}
+
+/* Entire page grid to separate header and content */
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 50px auto 50px;
+  grid-template-rows: 80px 40px auto;
+  grid-template-areas:
+  "h h h"
+  ". . ."
+  ". m .";
+}
+
+.header {
+  text-align: center; 
+  grid-area: h;
+}
+
+h1 {
   text-align: center;
+  text-transform: lowercase;
+  color: #4f3816;
+  font-size: 2.5em;
+  letter-spacing: 0.2em;
+  font-weight: lighter;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+hr {
+  width: 50%;
+  border-color: #4f3816;
+  border-width: 1px;
+  border-top: none;
+  color: #4f3816;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.main-content {
+  height: 100%;
+  padding: 1em;
+  grid-area: m;
+}
+
+.username, .username-input {
+  margin-bottom: 2em;
+  color: #4f3816;
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 1.2em;
+  border-style: none;
+  border-color: #FAFFF7;
+  background-color: #FAFFF7; 
+  font-family: Merriweather;
+  box-sizing: border-box;
+  outline: none;
+}
+
+#pencil {
+  width: 0.9em;
+  color: #4f3816;
+}
+
+/* observation grid */
+.observationgrid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+  grid-auto-rows: 225px;
+  grid-auto-flow: dense;
+  grid-gap: 40px;
+}
+
+.observation-card {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 3fr 1fr;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-style: solid;
+  border-color: #ccc;
+  border-width: 1px;
+  border-radius: 0 0 10px 10px;;
+  box-shadow: 1px 1px 2px 0 rgb(100, 100, 100, 0.3);
+  box-sizing: border-box;
+  transition: all 0.3s;
+  position: relative;
+}
+
+
+@media only screen and (max-width: 480px) {
+  .observationgrid-container {
+  grid-auto-rows: 200px;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.observation-card:hover {
+  box-shadow: 1px 30px 15px 0 rgb(100, 100, 100, 0.3);
+  transform: translateY(-20px);
+  transition: all 0.3s;
 }
 
-.App-link {
-  color: #61dafb;
+.observation-card > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-@keyframes App-logo-spin {
+.image-counter {
+  font-family: Arial;
+  background-color: rgb(50, 50, 50, 0.6);
+  border-radius: 0 0 0 6px;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  font-size: 0.8em;
+}
+
+.image-placeholder {
+  margin: auto;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: #e1fad2;
+  animation: loading-flip 1s infinite linear;
+}
+
+@keyframes loading-flip {
   from {
-    transform: rotate(0deg);
+    transform: rotateY(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: rotateY(359deg);
   }
+}
+
+.observation-details {
+  text-align: center;
+  width: 100%;
+  overflow-y: auto;
+  font-size: 1em;
+  color: #777;
+  text-transform: lowercase;
 }
