@@ -1,11 +1,13 @@
 import React, { useState } from "react"
 import ObservationGrid from "./ObservationGrid"
+import PageController from "./PageController"
 import pencil from "../img/pencil.svg"
 
 function MainContent() {
   let [ username, setUsername ] = useState("shintoo")
   let [ buffer, setBuffer ] = useState(null)
   let [ editingBuffer, setEditingBuffer ] = useState(false)
+  let [ page, setPage ] = useState(1)
 
   const handleChange = (event) => {
       setBuffer(event.target.value)
@@ -40,7 +42,8 @@ function MainContent() {
             {username} <img id="pencil" src={pencil} />
           </span>
       }
-      <ObservationGrid username={username}/>
+      <ObservationGrid username={username} page={page}/>
+      <PageController page={page} setPage={setPage} />
     </div>
   )
 }

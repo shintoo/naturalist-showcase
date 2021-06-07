@@ -8,9 +8,9 @@ function ObservationGrid(props) {
 
   // Create an effect that updates `photos` whenever props.username changes
   useEffect(() => {
-      getObservations(props.username, 1, 20) // TODO get page #/per page from props! Make next/previous buttons in MC
+      getObservations(props.username, props.page, 20) // TODO get # per page from props! Make selection in MC
         .then(os => setObservations(os))
-  }, [props.username])
+  }, [props.username, props.page])
 
   const observationCards = observations.map((o, i) => 
     <ObservationCard key={i} name={o.name} photos={o.photos} />

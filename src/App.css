@@ -14,7 +14,8 @@ html, body {
   grid-template-areas:
   "h h h"
   ". . ."
-  ". m .";
+  ". m ."
+  ". p .";
 }
 
 .header {
@@ -149,4 +150,22 @@ hr {
   font-size: 1em;
   color: #777;
   text-transform: lowercase;
+}
+
+.page-controller {
+  width: 100%;
+  grid-area: p;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1em;
+}
+
+.page-number {
+  margin: 1em;
+}
+
+.page-button {
+   border: none;
+   padding: 1em;
 }
