@@ -8,7 +8,7 @@ function ObservationGrid(props) {
 
   // Create an effect that updates `observations` whenever props.username or props.page
   useEffect(() => {
-      getObservations(props.username, props.page, 10) // TODO get # per page from props! Make selection in MC
+      getObservations(props.username, props.page, 20) // TODO get # per page from props! Make selection in MC
         .then(os => setObservations(os))
   }, [props.username, props.page])
 
@@ -35,7 +35,7 @@ function getObservations(username, page, perPage) {
     .then(resp => {
         return resp.results.map(r => { 
           return {
-            name: r.taxon.preferred_common_name ? r.taxon.preferred_common_name : r.species_guess,
+            name: r.taxon ? r.taxon.preferred_common_name : r.species_guess,
             photos: r.photos.map(p => p.url.replace("square", "medium"))
           }
         })
