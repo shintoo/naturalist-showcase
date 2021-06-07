@@ -12,7 +12,6 @@ function ObservationCard(props) {
       setImageIndex(0)
   }, [props.name])
 
-  // For now, just display the first image.
   return (
     <div className="observation-card">
       { loadedFirst ? null :
@@ -22,7 +21,7 @@ function ObservationCard(props) {
         style={
           // Loading the first image displays the loading spinner,
           // loading later images just sets the current image opacity to 0.8.
-          loadedFirst ? loadedCurrent ? {} : { opacity: 0.8, transition: "all 0.1s" } : { display: "none" }
+          loadedFirst ? loadedCurrent ? {} : { opacity: 0.8, transition: "opacity 0.1s" } : { display: "none" }
         }
         src={props.photos[imageIndex]}
         onLoad={() => { setLoadedCurrent(true); setLoadedFirst(true) }}
