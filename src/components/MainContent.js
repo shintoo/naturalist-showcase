@@ -24,7 +24,6 @@ function MainContent() {
   // TODO button to change observationgrid from a 'grid' to a 'list' (think google photos look to blog lool)
   return (
     <div className="main-content">
-      {/* Add textbox to change username TODO */}
       { editingBuffer ?
           <input
             className="username-input"

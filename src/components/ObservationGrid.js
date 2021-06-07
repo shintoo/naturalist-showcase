@@ -6,9 +6,9 @@ const observationsEndpoint = "https://api.inaturalist.org/v1/observations"
 function ObservationGrid(props) {
   let [ observations, setObservations ] = useState([])
 
-  // Create an effect that updates `photos` whenever props.username changes
+  // Create an effect that updates `observations` whenever props.username or props.page
   useEffect(() => {
-      getObservations(props.username, props.page, 20) // TODO get # per page from props! Make selection in MC
+      getObservations(props.username, props.page, 10) // TODO get # per page from props! Make selection in MC
         .then(os => setObservations(os))
   }, [props.username, props.page])
 
@@ -25,7 +25,6 @@ function ObservationGrid(props) {
 
 function getObservations(username, page, perPage) {
   // Builds a list of { name: "Eastern Cottontail", photos: ["https://...", ] }
-  // TODO fetch by pages!
   return fetch(
     observationsEndpoint
     + "?user_login=" + username

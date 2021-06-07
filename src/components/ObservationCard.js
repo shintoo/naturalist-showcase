@@ -5,9 +5,11 @@ function ObservationCard(props) {
   let [ loadedCurrent, setLoadedCurrent ] = useState(false)
   let [ imageIndex, setImageIndex ] = useState(0)
 
+  // Reset loading config and image number on page change etc.
   useEffect(() => {
       setLoadedFirst(false)
       setLoadedCurrent(false)
+      setImageIndex(0)
   }, [props.name])
 
   // For now, just display the first image.
