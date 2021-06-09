@@ -144,8 +144,14 @@ hr {
 }
 
 @keyframes fade-in {
-    from { scale: 0.01}
-    to   { scale: 1; } 
+    from {
+      border-radius: 10px;
+      scale: 0.01
+    }
+    to   {
+      scale: 1;
+      border-radius: none;
+    }
 }
 
 img {
@@ -217,4 +223,14 @@ img {
 
 .page-button:disabled {
   visibility: hidden;
+}
+
+.image-modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgb(100, 100, 100, 0.5);
+  width: 100%;
+  height: 100%;
+  padding: 5%;
 }
