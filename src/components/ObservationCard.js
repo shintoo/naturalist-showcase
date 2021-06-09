@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
 
+const observationRootUrl = "https://www.inaturalist.org/observations/"
+
 function ObservationCard(props) {
   let [ loadedFirst, setLoadedFirst ] = useState(false)
   let [ loadedCurrent, setLoadedCurrent ] = useState(false)
@@ -14,26 +16,29 @@ function ObservationCard(props) {
 
   return (
     <div className="observation-card">
-      { loadedFirst ? null :
-        <div className="image-placeholder" />
+      { (props.photos.length === 0 || loadedFirst) || <div className="image-placeholder" /> }
+      { props.photos.length !== 0 ?
+          <img
+            style={
+              // Loading the first image displays the loading spinner,
+              // loading later images just sets the current image opacity to 0.8.
+              loadedFirst ? loadedCurrent ? {} : { opacity: 0.8, transition: "opacity 0.1s" } : { display: "none" }
+            }
+            src={props.photos[imageIndex]}
+            onLoad={() => { setLoadedCurrent(true); setLoadedFirst(true) }}
+            onClick={() => {
+              if (props.photos.length == 1)
+                return
+              setLoadedCurrent(false)
+              setImageIndex(imageIndex == props.photos.length-1 ? 0 : imageIndex + 1)
+            }}
+          />
+        :
+          <span className="no-image">No image</span>
       }
-      <img
-        style={
-          // Loading the first image displays the loading spinner,
-          // loading later images just sets the current image opacity to 0.8.
-          loadedFirst ? loadedCurrent ? {} : { opacity: 0.8, transition: "opacity 0.1s" } : { display: "none" }
-        }
-        src={props.photos[imageIndex]}
-        onLoad={() => { setLoadedCurrent(true); setLoadedFirst(true) }}
-        onClick={() => {
-          if (props.photos.length == 1)
-            return
-          setLoadedCurrent(false)
-          setImageIndex(imageIndex == props.photos.length-1 ? 0 : imageIndex + 1)
-        }}/>
-      <div className="image-counter">{imageIndex+1}/{props.photos.length}</div>
+      { props.photos.length !==0 && <div className="image-counter">{imageIndex+1}/{props.photos.length}</div> }
       <div className="observation-details">
-        {props.name ? props.name : "Something!" }
+        <a href={observationRootUrl + props.id}>{props.name ? props.name : "Something!"}</a>
       </div>
     </div>
   )

@@ -121,17 +121,24 @@ hr {
   object-fit: cover;
   animation-name: fade-in;
   animation-duration: 0.5s;
-  animation-fill-mode: forwards;
+  animation-fill-mode: forwards; 
+}
+
+.observation-card > .no-image {
+    margin: auto;
+    color: #777;
 }
 
 @keyframes fade-in {
-    from {
-        opacity: 0;
-    }
+    from { scale: 0.01}
+    to   { scale: 1; } 
+}
 
-    to {
-        opacity: 1;
-    }
+img {
+    -webkit-backface-visibility: hidden; 
+    -ms-transform: translateZ(0); /* IE 9 */
+    -webkit-transform: translateZ(0); /* Chrome, Safari, Opera */
+    transform: translateZ(0);
 }
 
 .image-counter {
@@ -164,7 +171,8 @@ hr {
   }
 }
 
-.observation-details {
+.observation-details, a {
+  text-decoration: none;
   text-align: center;
   width: 100%;
   overflow-y: auto;

@@ -18,10 +18,10 @@ function MainContent() {
           setUsername(buffer)
           setEditingBuffer(false)
           setBuffer(null)
+          setPage(1)
       }
   }
 
-  // TODO button to change observationgrid from a 'grid' to a 'list' (think google photos look to blog lool)
   return (
     <div className="main-content">
       { editingBuffer ?
@@ -38,7 +38,8 @@ function MainContent() {
           <span
             onClick={() => setEditingBuffer(true)}
             className="username">
-            {username} <img id="pencil" src={pencil} />
+            {username}
+            <img id="pencil" src={pencil} />
           </span>
       }
       <ObservationGrid username={username} page={page}/>

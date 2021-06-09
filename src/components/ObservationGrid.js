@@ -13,7 +13,7 @@ function ObservationGrid(props) {
   }, [props.username, props.page])
 
   const observationCards = observations.map((o, i) => 
-    <ObservationCard key={i} name={o.name} photos={o.photos} />
+    <ObservationCard key={o.id} id={o.id} name={o.name} photos={o.photos} />
   )
 
   return (
@@ -35,6 +35,7 @@ function getObservations(username, page, perPage) {
     .then(resp => {
         return resp.results.map(r => { 
           return {
+            id: r.id,
             name: r.taxon && r.taxon.preferred_common_name ? r.taxon.preferred_common_name : r.species_guess,
             photos: r.photos.map(p => p.url.replace("square", "medium"))
           }
