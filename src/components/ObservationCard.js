@@ -36,7 +36,11 @@ function ObservationCard(props) {
         :
           <span className="no-image">No image</span>
       }
-      { props.photos.length !==0 && <div className="image-counter">{imageIndex+1}/{props.photos.length}</div> }
+      { (props.photos.length !==0 && loadedFirst) &&
+        <div className="image-counter">
+          {imageIndex + (loadedCurrent ? 1 : 0)}/{props.photos.length}
+        </div>
+      }
       <div className="observation-details">
         <a href={observationRootUrl + props.id}>{props.name ? props.name : "Something!"}</a>
       </div>
