@@ -47,7 +47,7 @@ function getObservations(username, page, perPage, setTotalResults) {
         return resp.results.map(r => { 
           return {
             id: r.id,
-            name: r.taxon && r.taxon.preferred_common_name ? r.taxon.preferred_common_name : r.species_guess,
+            name: r.taxon ? r.taxon.preferred_common_name || r.taxon.name : r.species_guess, 
             photos: r.photos.map(p => p.url.replace("square", "medium"))
           }
         })
