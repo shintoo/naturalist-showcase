@@ -1,10 +1,30 @@
 import React, { useState } from "react"
+import { useParams } from "react-router"
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+
 import ObservationGrid from "./ObservationGrid"
 import PageController from "./PageController"
 import pencil from "../img/pencil.svg"
 
 function MainContent() {
-  let [ username, setUsername ] = useState("shintoo")
+    return (
+        <Router>
+          <Switch>
+            <Route path="/:u" children={<UserWrappedMainContent />} />
+            <Route path="/" children={<UserWrappedMainContent />} />
+          </Switch>
+        </Router>
+    )
+}
+
+function UserWrappedMainContent() {
+  let { u } = useParams()
+  console.log(u)
+  let [ username, setUsername ] = useState(u || "shintoo")
   let [ buffer, setBuffer ] = useState(null)
   let [ editingBuffer, setEditingBuffer ] = useState(false)
   let [ page, setPage ] = useState(1)

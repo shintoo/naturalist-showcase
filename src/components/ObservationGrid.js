@@ -16,13 +16,15 @@ function ObservationGrid(props) {
 
   useEffect(() => props.setFinalPage(Math.ceil(totalResults / numPerPage)), [observations])
 
-  const observationCards = observations.map((o, i) => 
+  const observationCards = observations && observations.map((o, i) => 
     <ObservationCard key={o.id} id={o.id} name={o.name} photos={o.photos} />
   )
 
   return (
     <div className="observationgrid-container">
-      {observationCards}
+      {observationCards ||
+        <span class="user-not-found">User {props.username} was not found</span>
+      }
     </div>
   )
 }
@@ -38,6 +40,9 @@ function getObservations(username, page, perPage, setTotalResults) {
     .then(resp => resp.json())
     .then(resp => {
         console.log(resp.total_results)
+        if (!resp.results)
+          return null;
+
         setTotalResults(resp.total_results)
         return resp.results.map(r => { 
           return {
