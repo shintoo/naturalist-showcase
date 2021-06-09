@@ -8,6 +8,7 @@ function MainContent() {
   let [ buffer, setBuffer ] = useState(null)
   let [ editingBuffer, setEditingBuffer ] = useState(false)
   let [ page, setPage ] = useState(1)
+  let [ finalPage, setFinalPage ] = useState(1)
 
   const handleChange = (event) => {
       setBuffer(event.target.value)
@@ -42,8 +43,8 @@ function MainContent() {
             <img id="pencil" src={pencil} />
           </span>
       }
-      <ObservationGrid username={username} page={page}/>
-      <PageController page={page} setPage={setPage} />
+      <ObservationGrid username={username} page={page} setFinalPage={setFinalPage}/>
+      <PageController page={page} setPage={setPage} finalPage={finalPage}/>
     </div>
   )
 }

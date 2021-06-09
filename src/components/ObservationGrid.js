@@ -5,12 +5,16 @@ const observationsEndpoint = "https://api.inaturalist.org/v1/observations"
 
 function ObservationGrid(props) {
   let [ observations, setObservations ] = useState([])
+  let [ totalResults, setTotalResults ] = useState(0)
 
-  // Create an effect that updates `observations` whenever props.username or props.page
+  const numPerPage = 20  // TODO get # per page from props! Make selection in MC
+
   useEffect(() => {
-      getObservations(props.username, props.page, 20) // TODO get # per page from props! Make selection in MC
+      getObservations(props.username, props.page, numPerPage, setTotalResults)
         .then(os => setObservations(os))
   }, [props.username, props.page])
+
+  useEffect(() => props.setFinalPage(Math.ceil(totalResults / numPerPage)), [observations])
 
   const observationCards = observations.map((o, i) => 
     <ObservationCard key={o.id} id={o.id} name={o.name} photos={o.photos} />
@@ -23,7 +27,7 @@ function ObservationGrid(props) {
   )
 }
 
-function getObservations(username, page, perPage) {
+function getObservations(username, page, perPage, setTotalResults) {
   // Builds a list of { name: "Eastern Cottontail", photos: ["https://...", ] }
   return fetch(
     observationsEndpoint
@@ -33,6 +37,8 @@ function getObservations(username, page, perPage) {
     + "&order=desc&order_by=created_at")
     .then(resp => resp.json())
     .then(resp => {
+        console.log(resp.total_results)
+        setTotalResults(resp.total_results)
         return resp.results.map(r => { 
           return {
             id: r.id,
