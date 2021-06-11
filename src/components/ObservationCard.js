@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { Link } from "react-router-dom"
 
 const observationRootUrl = "https://www.inaturalist.org/observations/"
 
@@ -27,10 +28,11 @@ function ObservationCard(props) {
             src={props.photos[imageIndex]}
             onLoad={() => { setLoadedCurrent(true); setLoadedFirst(true) }}
             onClick={() => {
-              if (props.photos.length == 1)
+              props.setObservationId(props.id)
+              if (props.photos.length === 1)
                 return
               setLoadedCurrent(false)
-              setImageIndex(imageIndex == props.photos.length-1 ? 0 : imageIndex + 1)
+              setImageIndex(imageIndex === props.photos.length-1 ? 0 : imageIndex + 1)
             }}
           />
         :

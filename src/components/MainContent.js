@@ -7,28 +7,33 @@ import {
 } from "react-router-dom";
 
 import ObservationGrid from "./ObservationGrid"
+import ObservationPage from "./ObservationPage"
 import PageController from "./PageController"
 import pencil from "../img/pencil.svg"
 
 function MainContent() {
     return (
-        <Router>
-          <Switch>
-            <Route path="/:u" children={<UserWrappedMainContent />} />
-            <Route path="/" children={<UserWrappedMainContent />} />
-          </Switch>
-        </Router>
+      <Router>
+        <Switch>
+          <Route path="/:u">
+            <Homepage />
+          </Route>
+          <Route path="/">
+            <Homepage />
+          </Route>
+        </Switch>
+      </Router>
     )
 }
 
-function UserWrappedMainContent() {
-  let { u } = useParams()
-  console.log(u)
-  let [ username, setUsername ] = useState(u || "shintoo")
-  let [ buffer, setBuffer ] = useState(null)
+function Homepage() {
+  let { u }                               = useParams()
+  let [ username, setUsername ]           = useState(u || "shintoo")
+  let [ buffer, setBuffer ]               = useState(null)
   let [ editingBuffer, setEditingBuffer ] = useState(false)
-  let [ page, setPage ] = useState(1)
-  let [ finalPage, setFinalPage ] = useState(1)
+  let [ page, setPage ]                   = useState(1)
+  let [ finalPage, setFinalPage ]         = useState(1)
+  let [ observationId, setObservationId ] = useState(null)
 
   const handleChange = (event) => {
       setBuffer(event.target.value)
@@ -63,7 +68,14 @@ function UserWrappedMainContent() {
             <img id="pencil" src={pencil} />
           </span>
       }
-      <ObservationGrid username={username} page={page} setFinalPage={setFinalPage}/>
+      <ObservationGrid
+        username={username}
+        page={page}
+        setFinalPage={setFinalPage}
+        setObservationId={setObservationId}
+        hide={observationId !== null}
+      />
+      <ObservationPage observationId={observationId} />
       <PageController page={page} setPage={setPage} finalPage={finalPage}/>
     </div>
   )

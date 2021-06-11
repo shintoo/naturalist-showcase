@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import Goo from "gooey-react"
 import ObservationCard from "./ObservationCard"
 
 const observationsEndpoint = "https://api.inaturalist.org/v1/observations"
@@ -7,7 +8,7 @@ function ObservationGrid(props) {
   let [ observations, setObservations ] = useState([])
   let [ totalResults, setTotalResults ] = useState(0)
 
-  const numPerPage = 20  // TODO get # per page from props! Make selection in MC
+  const numPerPage = 12
 
   useEffect(() => {
       getObservations(props.username, props.page, numPerPage, setTotalResults)
@@ -16,9 +17,26 @@ function ObservationGrid(props) {
 
   useEffect(() => props.setFinalPage(Math.ceil(totalResults / numPerPage)), [observations])
 
+  const styles = {
+      transform: props.hide ? "translateX(-100vw)" : "none",
+      opacity: props.hide ? "0.5" : "1"
+  }
+
   const observationCards = observations && observations.map((o, i) => 
-    <ObservationCard key={o.id} id={o.id} name={o.name} photos={o.photos} />
+    <ObservationCard
+      key={o.id}
+      id={o.id}
+      name={o.name}
+      photos={o.photos}
+      setObservationId={props.setObservationId}
+    />
   )
+
+  if (observations.length === 0) {
+    return (
+      <span className="loading">loading...</span>
+    )
+  }
 
   return (
     <div className="observationgrid-container">
