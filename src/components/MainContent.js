@@ -33,11 +33,14 @@ function Homepage() {
   let [ editingBuffer, setEditingBuffer ] = useState(false)
   let [ page, setPage ]                   = useState(1)
   let [ finalPage, setFinalPage ]         = useState(1)
+  let [ showObservationPage, setShowObservationPage] = useState(false)
   let [ observationId, setObservationId ] = useState(null)
 
   const handleChange = (event) => {
       setBuffer(event.target.value)
   }
+
+  console.log("show page: ", showObservationPage)
 
   const handleKeyUp = (event) => {
       if (event.key === "Enter") {
@@ -73,9 +76,14 @@ function Homepage() {
         page={page}
         setFinalPage={setFinalPage}
         setObservationId={setObservationId}
-        hide={observationId !== null}
+        hide={showObservationPage}
+        setHide={setShowObservationPage}
       />
-      <ObservationPage observationId={observationId} />
+      <ObservationPage
+        observationId={observationId}
+        show={showObservationPage}
+        setShow={setShowObservationPage}
+      />
       <PageController page={page} setPage={setPage} finalPage={finalPage}/>
     </div>
   )

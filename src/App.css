@@ -55,7 +55,6 @@ html, body {
 }
 
 .observation-detailed-view {
-  grid-area: m;
   background-color: #fff;
   border-radius: 10px;
   border-style: solid;
@@ -70,7 +69,7 @@ html, body {
 }
 
 .observation-detailed-view > img {
-
+  border-radius: 10px 0 0 10px;
 }
 
 .observation-view-details {
@@ -108,17 +107,20 @@ hr {
 
 .observation-page {
     position: fixed;
-    top: 100px;
-    left: 100px;
+    top: 300px;
+    left: 300px;
     height: 100%;
     opacity: 0.5;
     padding: 1em;
-    transition: all 1s ease-out;
+    transition: all 0.5s ease-in-out;
 }
 
 .observation-page > button {
     background: none;
     border: none;
+    font-size: 2em;
+    color: #333;
+    font-family: inherit;
 }
 
 .main-content {
@@ -160,6 +162,7 @@ hr {
   grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
   grid-auto-rows: 225px;
   grid-gap: 40px;
+  transition: all 0.5s ease-in-out;
 }
 
 .observation-card {

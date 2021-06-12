@@ -18,8 +18,8 @@ function ObservationGrid(props) {
   useEffect(() => props.setFinalPage(Math.ceil(totalResults / numPerPage)), [observations])
 
   const styles = {
-      transform: props.hide ? "translateX(-100vw)" : "none",
-      opacity: props.hide ? "0.5" : "1"
+      transform: props.hide ? "translateX(-50vw)" : "none",
+      opacity: props.hide ? "0" : "1"
   }
 
   const observationCards = observations && observations.map((o, i) => 
@@ -29,6 +29,7 @@ function ObservationGrid(props) {
       name={o.name}
       photos={o.photos}
       setObservationId={props.setObservationId}
+      hideObservationGrid={() => props.setHide(true)}
     />
   )
 
@@ -39,7 +40,7 @@ function ObservationGrid(props) {
   }
 
   return (
-    <div className="observationgrid-container">
+    <div style={styles} className="observationgrid-container">
       {observationCards ||
         <span class="user-not-found">User {props.username} was not found</span>
       }

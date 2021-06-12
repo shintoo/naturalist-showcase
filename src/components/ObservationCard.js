@@ -16,7 +16,9 @@ function ObservationCard(props) {
   }, [props.name])
 
   return (
-    <div className="observation-card">
+    <div
+       className="observation-card"
+       onClick={() => (props.setObservationId(props.id), props.hideObservationGrid())}>
       { (props.photos.length === 0 || loadedFirst) || <div className="image-placeholder" /> }
       { props.photos.length !== 0 ?
           <img
@@ -28,7 +30,6 @@ function ObservationCard(props) {
             src={props.photos[imageIndex]}
             onLoad={() => { setLoadedCurrent(true); setLoadedFirst(true) }}
             onClick={() => {
-              props.setObservationId(props.id)
               if (props.photos.length === 1)
                 return
               setLoadedCurrent(false)
