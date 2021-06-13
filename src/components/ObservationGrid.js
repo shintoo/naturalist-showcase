@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import Goo from "gooey-react"
 import ObservationCard from "./ObservationCard"
 
 const observationsEndpoint = "https://api.inaturalist.org/v1/observations"
@@ -7,19 +6,19 @@ const observationsEndpoint = "https://api.inaturalist.org/v1/observations"
 function ObservationGrid(props) {
   let [ observations, setObservations ] = useState([])
   let [ totalResults, setTotalResults ] = useState(0)
-
   const numPerPage = 12
 
   useEffect(() => {
-      getObservations(props.username, props.page, numPerPage, setTotalResults)
-        .then(os => setObservations(os))
+    getObservations(props.username, props.page, numPerPage, setTotalResults)
+      .then(os => setObservations(os))
   }, [props.username, props.page])
 
   useEffect(() => props.setFinalPage(Math.ceil(totalResults / numPerPage)), [observations])
 
   const styles = {
-      transform: props.hide ? "translateX(-50vw)" : "none",
-      opacity: props.hide ? "0" : "1"
+    transform: props.hide ? "translateX(-50vw)" : "none",
+    opacity: props.hide ? "0" : "1",
+    visibility: props.hide ? "hidden": ""
   }
 
   const observationCards = observations && observations.map((o, i) => 
@@ -33,11 +32,8 @@ function ObservationGrid(props) {
     />
   )
 
-  if (observations.length === 0) {
-    return (
-      <span className="loading">loading...</span>
-    )
-  }
+  if (observations.length === 0)
+    return <span className="loading">loading...</span>
 
   return (
     <div style={styles} className="observationgrid-container">

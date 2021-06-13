@@ -68,7 +68,7 @@ function Homepage() {
             onClick={() => setEditingBuffer(true)}
             className="username">
             {username}
-            <img id="pencil" src={pencil} />
+            <img alt="edit" id="pencil" width="16" height="16" src={pencil} />
           </span>
       }
       <ObservationGrid

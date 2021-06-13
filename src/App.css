@@ -53,35 +53,6 @@ html, body {
     justify-content: center;
     align-items: center;
 }
-
-.observation-detailed-view {
-  background-color: #fff;
-  border-radius: 10px;
-  border-style: solid;
-  border-color: #ccc;
-  border-width: 1px;
-  border-radius: 10px;
-  box-shadow: 0 10px 50px 0 rgb(0, 0, 0, 0.7);
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.observation-detailed-view > img {
-  border-radius: 10px 0 0 10px;
-}
-
-.observation-view-details {
-  text-decoration: none;
-  text-align: center;
-  width: 100%;
-  overflow-y: auto;
-  font-size: 1em;
-  color: #777;
-  text-transform: lowercase;
-}
-
   
 .header {
   text-align: center; 
@@ -105,22 +76,135 @@ hr {
   color: #4f3816;
 }
 
-.observation-page {
-    position: fixed;
-    top: 300px;
-    left: 300px;
-    height: 100%;
-    opacity: 0.5;
-    padding: 1em;
-    transition: all 0.5s ease-in-out;
-}
+/***** Observation page ********/
 
 .observation-page > button {
-    background: none;
-    border: none;
+  position: absolute;
+  top: 50%;
+  left: -2em;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #333;
+  font-family: sans-serif;
+  font-weight: lighter;
+}
+
+.observation-page {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  background-color: #fff;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: #ccc;
+  border-radius: 10px;
+  box-shadow: 0 10px 50px 0 rgb(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  transition: all 0.5s ease-in-out;
+  width: 62em;
+}
+
+.carousel {
+    position: relative;
+    box-sizing: border-box;
+    width: auto;
+    flex: 0 0 300px;
+    transition: all 0.5s ease-in-out;   
+}
+
+.carousel > img { 
+  border-radius: 10px;
+  margin: 15px;
+  margin-bottom: 10px;
+  object-fit: contain;
+  transition: all 0.5s ease-in-out;
+}
+
+.image-counter {
+  font-family: Arial;
+  background-color: rgb(50, 50, 50, 0.6);
+  color: #fff;
+  position: absolute;
+ font-size: 0.8em;
+}
+
+.carousel > .image-counter {
+  top: 15px;
+  right: 15px;
+  padding: 5px;
+  border-radius: 0 6px 0 6px; 
+}
+
+.observation-card > .image-counter {
+  top: 0;
+  right: 0;     
+  border-radius: 0 0 0 6px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image-counter > span {
+    margin-right: 4px;
+}
+
+.observation-page > .details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  min-width: 100px;
+  text-decoration: none;
+  text-align: center;
+  overflow-y: auto;
+  font-size: 1em;
+  color: #777;
+  text-transform: lowercase;
+}
+
+.details > #common-name {
     font-size: 2em;
-    color: #333;
-    font-family: inherit;
+    font-weight: bold;
+    
+}
+
+.details > div > #rank {
+    font-size: 1em;
+    font-style: italic;
+}
+
+.details > div > #name {
+    font-size: 1.5em;
+    font-style: italic;
+}
+
+.details > #wikipedia-summary {
+    text-align: left;
+    line-height: 1.75em;
+    align-content: center;
+    padding: 2em 0 2em 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 80%;
+}
+
+#wikipedia-summary > a {
+    text-decoration: underline;
+}
+
+.details > #date {
+    font-size: 0.75em;
+    padding-top: 2em;
+}
+
+.details > #inat-link {
+  padding-left: 50px;
+  display: none;
 }
 
 .main-content {
@@ -208,12 +292,11 @@ hr {
 .observation-card:hover {
   box-shadow: 1px 25px 25px 0 rgb(100, 100, 100, 0.3);
   transform: translateY(-20px);
-  scale: 1.08;
+  scale: 1.1;
   transition: all 0.3s;
 }
 
-.observation-card > img {
-  flex: 1;
+.observation-card > img { 
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -246,18 +329,6 @@ img {
     transform: translateZ(0);
 }
 
-.image-counter {
-  font-family: Arial;
-  background-color: rgb(50, 50, 50, 0.6);
-  border-radius: 0 0 0 6px;
-  color: #fff;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 5px;
-  font-size: 0.8em;
-}
-
 .image-placeholder {
   margin: auto;
   width: 20px;
@@ -276,7 +347,7 @@ img {
   }
 }
 
-.observation-details, a {
+.observation-card > .caption, a {
   text-decoration: none;
   text-align: center;
   width: 100%;
@@ -319,3 +390,4 @@ img {
   height: 100%;
   padding: 5%;
 }
+
