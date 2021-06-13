@@ -9,9 +9,12 @@ function ObservationCard(props) {
 
   const showPlaceholder = props.photos.length !== 0 && !loaded
 
+  const styles = { visibility: loaded ? "visible" : "hidden" } 
+
   return (
     <div
-      className="observation-card"
+      style={styles} 
+      className={["observation-card", loaded ? "loaded" : ""].join(" ")}
       onClick={() => (props.setObservationId(props.id), props.hideObservationGrid())}>
       { !showPlaceholder || <div className="image-placeholder" /> }
       { props.photos.length !== 0 ?

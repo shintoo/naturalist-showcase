@@ -10,16 +10,19 @@ function ObservationPage({ show, setShow, observationId }) {
   let [ loadedCurrent, setLoadedCurrent ] = useState(false)
   let [ carouselStyles, setCarouselStyles ] = useState({ transition: "all 0.1s ease-out" })
 
+  // Retrieve the observation when the passed ID changes
+  // and update the observation
   useEffect(() => {
+    if (!show)
+      return
     if (observationId === null)
       return
     fetch(observationEndpoint + observationId)
       .then(resp => resp.json())
-      .then(resp => {
-        setObservation(resp.results ? resp.results[0] : null)
-        setShow(true)
-      })
-  }, [observationId])
+      .then(resp => setObservation(resp.results ? resp.results[0] : null))
+  }, [show])
+
+
 
   let date = observation && observation.observed_on_details
 
@@ -48,14 +51,16 @@ function ObservationPage({ show, setShow, observationId }) {
   }
 
   const onLoad = () => {
-    setTimeout(_ => setCarouselStyles({ ...carouselStyles, scale: "1" }), 100)
+    setTimeout(_ => setCarouselStyles({ ...carouselStyles, scale: "1"}), 100)
     setLoadedCurrent(true)
-
   }
 
   const back = () => {
     setShow(false)
-    setTimeout(_ => setImageIndex(0), 500)
+    setTimeout(_ => {
+      setImageIndex(0)
+      setCarouselStyles({ ...carouselStyles, scale: "1" })
+    }, 500) // Transition time for fade out
   }
 
   const taxon = observation && observation.taxon
@@ -103,15 +108,22 @@ function ObservationPage({ show, setShow, observationId }) {
            </div>
            { wikipedia_summary &&
            <p id="wikipedia-summary">
-             {wikipedia_summary} 
-             <span> </span><a href={taxon.wikipedia_url}>read more</a>
+             {wikipedia_summary} &nbsp;
+             <a href={taxon.wikipedia_url}>
+               read more
+               <img
+                 alt="at wikipedia"
+                 height="16" width="16"
+                 src="https://upload.wikimedia.org/wikipedia/commons/d/d9/VisualEditor_-_Icon_-_External-link.svg"
+               /> 
+             </a>
            </p>
            }
            <span id="date">observed on {date.month}-{date.day}-{date.year} by {observation.user.name}</span>
            <a id="inat-link" href={observation.uri}><img width="16" height="16" src={iNatIcon} /></a>
         </div>
         </>:
-        <span>loading...</span>
+        <div className="image-placeholder" />
         }
       </div>
   )

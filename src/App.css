@@ -13,7 +13,8 @@ html, body {
   text-align: center;
   font-family: Merriweather;
   color: #4f3816;
-  padding: 200px;
+  margin-top: 30vh;
+  margin-bottom: 35vh;
   font-weight: lighter;
   display: block;
 }
@@ -78,18 +79,6 @@ hr {
 
 /***** Observation page ********/
 
-.observation-page > button {
-  position: absolute;
-  top: 50%;
-  left: -2em;
-  background: none;
-  border: none;
-  font-size: 1.5em;
-  color: #333;
-  font-family: sans-serif;
-  font-weight: lighter;
-}
-
 .observation-page {
   position: fixed;
   top: 50%;
@@ -106,6 +95,19 @@ hr {
   box-sizing: border-box;
   transition: all 0.5s ease-in-out;
   width: 62em;
+  min-height: 32em;
+}
+
+.observation-page > button {
+  position: absolute;
+  top: 50%;
+  left: -2em;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: #333;
+  font-family: sans-serif;
+  font-weight: lighter;
 }
 
 .carousel {
@@ -183,7 +185,7 @@ hr {
     font-style: italic;
 }
 
-.details > #wikipedia-summary {
+#wikipedia-summary {
     text-align: left;
     line-height: 1.75em;
     align-content: center;
@@ -194,7 +196,12 @@ hr {
 }
 
 #wikipedia-summary > a {
-    text-decoration: underline;
+    border-bottom: 1px solid #777;
+}
+
+#wikipedia-summary > a > img {
+
+    vertical-align: middle;
 }
 
 .details > #date {
@@ -268,6 +275,18 @@ hr {
   position: relative;
 }
 
+.observation-card.loaded {
+  animation-name: fade-in;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards; 
+}
+
+.observation-card.leaving {
+  animation-name: fade-in;
+  animation-duration: 0.5s;
+  animation-direction: reverse;
+  animation-fill-mode: forwards;
+}
 
 @media only screen and (max-width: 480px) {
   html, body, .main-content {
@@ -300,9 +319,6 @@ hr {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  animation-name: fade-in;
-  animation-duration: 0.5s;
-  animation-fill-mode: forwards; 
 }
 
 .observation-card > .no-image {
@@ -337,6 +353,7 @@ img {
   background-color: #e1fad2;
   animation: loading-flip 1s infinite linear;
 }
+
 
 @keyframes loading-flip {
   from {
