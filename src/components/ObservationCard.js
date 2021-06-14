@@ -3,10 +3,20 @@ import photoIcon from "../img/photo.png"
 
 function ObservationCard(props) {
   let [ loaded, setLoaded ] = useState(false)
+  let nameElement
 
   useEffect(() => {setLoaded(false)}, [props.id])
-
   const showPlaceholder = props.photos.length !== 0 && !loaded
+
+
+  if (props.naming.common_name) {
+    nameElement = props.naming.common_name
+  } else {
+    nameElement = <>
+      <span className="rank">{props.naming.rank}</span>
+      <span className="taxon">{props.naming.name}</span>
+    </>
+  }
 
   return (
     <div
@@ -15,7 +25,7 @@ function ObservationCard(props) {
       { !showPlaceholder || <div className="image-placeholder" /> }
       { props.photos.length === 0 ? <span className="no-image">No image</span> :
        <img
-          alt={props.name + " image"}
+          alt={props.naming.name + " image"}
           style={{display: loaded ? "inline-block" : "none"}}
           src={props.photos[0]}
           onLoad={() => {setLoaded(true)}}
@@ -28,7 +38,7 @@ function ObservationCard(props) {
         </div>
       }
       <div className="caption">
-        {props.name ? props.name : "Something!"}
+        {nameElement}
       </div>
     </div>
   )

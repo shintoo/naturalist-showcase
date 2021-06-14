@@ -121,8 +121,10 @@ function ObservationPage({ show, setShow, observationId }) {
              </a>
            </p>
            }
-           <span id="date">observed on {date.month}-{date.day}-{date.year} by {observation.user.name}</span>
-           <a id="inat-link" href={observation.uri}><img width="16" height="16" src={iNatIcon} /></a>
+           <a id="inat-link" href={observation.uri}>
+             <img width="14" height="14" src={iNatIcon} />
+             <span id="date">observed on {date.month}-{date.day}-{date.year} by {observation.user.name}</span>
+           </a>
         </div>
         </>:
         <div className="image-placeholder" />
