@@ -15,7 +15,7 @@ function ObservationPage({ show, setShow, observationId }) {
   useEffect(() => {
     if (!show || !observationId)
       return;
-
+ 
     fetch(observationEndpoint + observationId)
       .then(resp => resp.json())
       .then(resp => loadObservation(resp))
@@ -123,7 +123,9 @@ function ObservationPage({ show, setShow, observationId }) {
            }
            <a id="inat-link" href={observation.uri}>
              <img width="14" height="14" src={iNatIcon} />
-             <span id="date">observed on {date.month}-{date.day}-{date.year} by {observation.user.name}</span>
+             observed
+             {date && " on " + date.month + "-" + date.day + "-" + date.year}
+             {" by " + observation.user.name}
            </a>
         </div>
         </>:

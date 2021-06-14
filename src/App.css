@@ -111,11 +111,11 @@ hr {
 }
 
 .carousel {
-    position: relative;
-    box-sizing: border-box;
-    width: auto;
-    flex: 0 0 300px;
-    transition: all 0.5s ease-in-out;   
+  position: relative;
+  box-sizing: border-box;
+
+
+  transition: all 0.5s ease-in-out;   
 }
 
 .carousel > img { 
@@ -131,7 +131,7 @@ hr {
   background-color: rgb(50, 50, 50, 0.6);
   color: #fff;
   position: absolute;
- font-size: 0.8em;
+  font-size: 0.8em;
 }
 
 .carousel > .image-counter {
@@ -156,7 +156,6 @@ hr {
 }
 
 .observation-page > .details {
-  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 15px;
@@ -202,7 +201,12 @@ hr {
     vertical-align: middle;
 }
 
-#date {
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#inat-link {
     font-size: 0.75em;
     padding-top: 2em;
 }
@@ -370,7 +374,7 @@ img {
   }
 }
 
-.observation-card > .caption, a {
+.observation-card > .caption {
   text-decoration: none;
   text-align: center;
   width: 100%;
