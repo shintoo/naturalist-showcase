@@ -76,7 +76,7 @@ function ObservationPage({ show, setShow, observationId }) {
 
   if (observation) {
     // If our wikipedia information is from an ancestor taxa (or not)
-    if (!observation.taxon.wikipedia_url) {
+    if (observation.ancestor_summary) {
       wikipedia_url = observation.ancestor_url
       wikipedia_summary =
         taxon.name
@@ -109,6 +109,11 @@ function ObservationPage({ show, setShow, observationId }) {
           <div className="image-counter">
             {imageIndex + (loadedCurrent ? 1 : 0)}/{observation.photos.length}
           </div>
+          { !loadedCurrent &&
+            <div className="carousel-loading">
+              ...
+            </div>
+          }
         </div>          
         <div className="details">
            <span id="common-name">{observation.taxon.preferred_common_name} </span>
@@ -155,10 +160,6 @@ function trimSummary(sum) {
   if (!sum)
     return null
 
-  // For skipping disambig pages
-  if (sum.includes("may refer to"))
-    return null
-
   // Remove <i>/<b>'s etc
   sum = sum.replace( /(<([^>]+)>)/ig, '')
   sum = sum.replace( /&amp;/g, '&')
@@ -179,9 +180,13 @@ function trimSummary(sum) {
 // most generic) until a wikipedia URL and summary are
 // available. ancestor_ids is sorted from most generic
 // to most specific in the response data, so it is reversed
-// here.
+// here. Also, the most specific "ancestor" is actually
+// the same taxon that the observation is tagged as,
+// so the first element of the array is then removed.
 async function getAncestorInfo(ancestorIds) {
   ancestorIds.reverse()
+  ancestorIds.shift()
+
   for (let i = 0; i < ancestorIds.length; i++) {
     let data = await fetch(taxaEndpoint + ancestorIds[i])
       .then(response => response.json())
@@ -200,7 +205,9 @@ async function loadObservation(response) {
   let finalObservation = null
 
   if (response.results) {
-    if (response.results[0].taxon.wikipedia_url)
+    if (response.results[0].taxon.wikipedia_url
+        && !response.results[0].taxon.wikipedia_summary.includes("may refer to")
+        && response.results[0].taxon.wikipedia_summary.length > 8) // filter "..." etc
       return response.results[0]
 
     await getAncestorInfo(response.results[0].taxon.ancestor_ids)

@@ -102,6 +102,18 @@ hr {
   transition: all 0.5s ease-in-out;
 }
 
+.carousel-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1em;
+  background-color: rgb(50, 50, 50, 0.6);
+  border-radius: 6px;
+  color: #fff;
+  animation: cycle-bg 1s infinite ease-in-out;
+}
+
 .image-counter {
   font-family: Arial;
   background-color: rgb(50, 50, 50, 0.6);
@@ -368,9 +380,9 @@ img {
 }
 
 @keyframes cycle-bg {
-  0% {background-color: #bbb}
-  50% {background-color: #ddd}
-  100% {background-color: #bbb}
+  0% {background-color: rgba(0, 0, 0, 0.3)}
+  50% {background-color: rgba(0, 0, 0, 0.5)}
+  100% {background-color: rgba(0, 0, 0, 0.3)}
 }
 @keyframes loading-flip {
   0% {scale: 0.8}
