@@ -9,18 +9,26 @@ function ObservationPage({ show, setShow, observationId }) {
   let [ imageIndex, setImageIndex ] = useState(0)
   let [ loadedCurrent, setLoadedCurrent ] = useState(false)
   let [ carouselStyles, setCarouselStyles ] = useState({ transition: "all 0.1s ease-out" })
+  let [ showLoadingSpinner, setShowLoadingSpinner ] = useState(false)
 
   // Retrieve the observation when the passed ID changes
   // and update the observation
   useEffect(() => {
     if (!show || !observationId)
       return;
- 
+
+    setShowLoadingSpinner(true)
     fetch(observationEndpoint + observationId)
       .then(resp => resp.json())
       .then(resp => loadObservation(resp))
       .then(obs =>  setObservation(obs))
   }, [show])
+
+  useEffect(() => {
+    if (!observation)
+      return
+    setShowLoadingSpinner(false)
+  }, [observation])
 
   let date = observation && observation.observed_on_details
 
@@ -91,7 +99,7 @@ function ObservationPage({ show, setShow, observationId }) {
   return (
     <div style={styles} className="observation-page">
       <button onClick={back}>←</button>
-        { observation !== null ? <>
+      { observation !== null  && !showLoadingSpinner ? <>
         <div style={carouselStyles} className="carousel">
           <img
             alt={observation.taxon.preferred_common_name + " image"}
@@ -128,9 +136,16 @@ function ObservationPage({ show, setShow, observationId }) {
              {" by " + observation.user.name}
            </a>
         </div>
-        </>:
+       </>:<>
         <div className="image-placeholder" />
-        }
+        <div className="details-placeholder">
+          <div className="text-placeholder title" />
+          <div className="text-placeholder body" />
+          <div className="text-placeholder body" />
+          <div className="text-placeholder body" />
+        </div>
+       </>
+      }
       </div>
   )
 }
