@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react"
 import iNatIcon from "../img/inat.png"
 
 const observationEndpoint="https://api.inaturalist.org/v1/observations/"
+const taxaEndpoint="https://api.inaturalist.org/v1/taxa/"
 
 function ObservationPage({ show, setShow, observationId }) {
   let [ observation, setObservation ] = useState(null)
-  // eslint-disable-next-line
   let [ imageIndex, setImageIndex ] = useState(0)
   let [ loadedCurrent, setLoadedCurrent ] = useState(false)
   let [ carouselStyles, setCarouselStyles ] = useState({ transition: "all 0.1s ease-out" })
@@ -13,22 +13,20 @@ function ObservationPage({ show, setShow, observationId }) {
   // Retrieve the observation when the passed ID changes
   // and update the observation
   useEffect(() => {
-    if (!show)
-      return
-    if (observationId === null)
-      return
+    if (!show || !observationId)
+      return;
+
     fetch(observationEndpoint + observationId)
       .then(resp => resp.json())
-      .then(resp => setObservation(resp.results ? resp.results[0] : null))
+      .then(resp => loadObservation(resp))
+      .then(obs =>  setObservation(obs))
   }, [show])
-
-
 
   let date = observation && observation.observed_on_details
 
   let styles = {
-    transform: show ? "translate(-50%, -50%)" : "translate(100%, -50%)",
-    opacity: show  ? "1" : "0",
+    transform:  show ? "translate(-50%, -50%)" : "translate(100%, -50%)",
+    opacity:    show ? "1" : "0",
     visibility: show ? "" : "hidden",
   }
 
@@ -65,26 +63,28 @@ function ObservationPage({ show, setShow, observationId }) {
 
   const taxon = observation && observation.taxon
 
-  const trimSummary = sum => {
-    if (!sum)
-      return null
+  let wikipedia_summary
+  let wikipedia_url
 
-    // For skipping disambig pages
-    if (sum.includes("may refer to"))
-      return null
-
-    sum = sum.replace( /(<([^>]+)>)/ig, '')
-    sum = sum.replace( /&amp;/g, '&') 
-    if (sum.length >= 256) {
-      sum = sum.slice(0, 256)
-      let lastSpace = sum.lastIndexOf(' ')
-      sum = sum.substr(0, lastSpace)
-      sum += "..."
+  if (observation) {
+    // If our wikipedia information is from an ancestor taxa (or not)
+    if (!observation.taxon.wikipedia_url) {
+      wikipedia_url = observation.ancestor_url
+      wikipedia_summary =
+          taxon.name
+          + " is a member of "
+          + observation.ancestor_rank
+          + " "
+          + observation.ancestor_name
+          + ". "
+          + observation.ancestor_summary
+    } else {
+      wikipedia_summary = observation.taxon.wikipedia_summary
+      wikipedia_url = observation.taxon.wikipedia_url
     }
-    return sum
-  }
 
-  const wikipedia_summary = taxon && trimSummary(taxon.wikipedia_summary)
+    wikipedia_summary = trimSummary(wikipedia_summary)
+  }
 
   return (
     <div style={styles} className="observation-page">
@@ -109,7 +109,7 @@ function ObservationPage({ show, setShow, observationId }) {
            { wikipedia_summary &&
            <p id="wikipedia-summary">
              {wikipedia_summary} &nbsp;
-             <a href={taxon.wikipedia_url}>
+             <a href={wikipedia_url}>
                read more
                <img
                  alt="at wikipedia"
@@ -127,6 +127,73 @@ function ObservationPage({ show, setShow, observationId }) {
         }
       </div>
   )
+}
+
+// Trim a summary to <256 characters, at the last word that fits
+function trimSummary(sum) {
+  if (!sum)
+    return null
+
+  // For skipping disambig pages
+  if (sum.includes("may refer to"))
+    return null
+
+  // Remove <i>/<b>'s etc
+  sum = sum.replace( /(<([^>]+)>)/ig, '')
+  sum = sum.replace( /&amp;/g, '&')
+
+  if (sum.length >= 256) {
+    sum = sum.slice(0, 256)
+    // Don't cut off in the middle of a word
+    let lastSpace = sum.lastIndexOf(' ')
+    sum = sum.substr(0, lastSpace)
+    sum += "..."
+  }
+  return sum
+}
+
+// For use when the identified taxon does not have a
+// wikipedia_url or wikipedia_summary present.
+// Ascend the tree of ancestors (from most local to
+// most generic) until a wikipedia URL and summary are
+// available. ancestor_ids is sorted from most generic
+// to most specific in the response data, so it is reversed
+// here.
+async function getAncestorInfo(ancestorIds) {
+  ancestorIds.reverse()
+  for (let i = 0; i < ancestorIds.length; i++) {
+    let data = await fetch(taxaEndpoint + ancestorIds[i])
+      .then(response => response.json())
+      .then(data => {
+        if (data.results[0].wikipedia_url)
+          return data.results[0]
+        return null
+      })
+    if (data)
+      return data
+  }
+}
+
+// Process a response and prepare an object to be set to observation
+async function loadObservation(response) {
+  let finalObservation = null
+
+  if (response.results) {
+    if (response.results[0].taxon.wikipedia_url)
+      return response.results[0]
+
+    await getAncestorInfo(response.results[0].taxon.ancestor_ids)
+      .then(result => {
+        let newObs = response.results[0]
+        newObs.ancestor_url = result.wikipedia_url
+        newObs.ancestor_summary = result.wikipedia_summary
+        newObs.ancestor_rank = result.rank
+        newObs.ancestor_name = result.name
+        finalObservation = newObs
+      })
+  }
+
+  return finalObservation
 }
 
 export default ObservationPage

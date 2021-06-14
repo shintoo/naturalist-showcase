@@ -164,7 +164,6 @@ hr {
   text-decoration: none;
   text-align: center;
   overflow-y: auto;
-  font-size: 1em;
   color: #777;
   text-transform: lowercase;
 }
@@ -273,9 +272,11 @@ hr {
   box-sizing: border-box;
   transition: all 0.3s;
   position: relative;
+  visibility: none;
 }
 
 .observation-card.loaded {
+  visibility: visible;
   animation-name: fade-in;
   animation-duration: 0.5s;
   animation-fill-mode: forwards; 
