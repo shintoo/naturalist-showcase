@@ -71,13 +71,15 @@ function ObservationPage({ show, setShow, observationId }) {
     if (!observation.taxon.wikipedia_url) {
       wikipedia_url = observation.ancestor_url
       wikipedia_summary =
-          taxon.name
-          + " is a member of "
-          + observation.ancestor_rank
-          + " "
-          + observation.ancestor_name
-          + ". "
-          + observation.ancestor_summary
+        taxon.name
+        + " is a" + (/[aeiou]/.test(observation.taxon.rank[0]) ? "n " : " ")
+        + observation.taxon.rank
+        + " within the "
+        + observation.ancestor_name
+        + " "
+        + observation.ancestor_rank
+        + ". "
+        + observation.ancestor_summary
     } else {
       wikipedia_summary = observation.taxon.wikipedia_summary
       wikipedia_url = observation.taxon.wikipedia_url

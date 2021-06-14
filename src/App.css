@@ -272,7 +272,7 @@ hr {
   box-sizing: border-box;
   transition: all 0.3s;
   position: relative;
-  visibility: none;
+  visibility: hidden;
 }
 
 .observation-card.loaded {

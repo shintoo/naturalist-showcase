@@ -13,5 +13,4 @@ An alternative iNaturalist observation browser focused on imagery.
 - **Learn** with descriptions provided by Wikipedia, and if there is no wikipedia page for the observation's taxon,
   then the phylogenetic tree is climbed until the most local taxon with a wikipedia page is found. That way, there
   is always a description provided! (For example, if there is no wikipedia page for the species, nor the genus, but
-  there is for the family). The description will then have additional text to indicate this, e.g. "Philodinida is a
-  member of subclass Bdelloidea. [...]"
+  there is for the family). The description will then have additional text to indicate this, e.g. "Philodinida is an order within the Bdelloidea subclass. [bdelloidea description]"
