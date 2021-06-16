@@ -9,7 +9,9 @@ function ObservationCard(props) {
   const showPlaceholder = props.photos.length !== 0 && !loaded
 
 
-  if (props.naming.common_name) {
+  if (!props.naming) {
+      nameElement = <span style={{textStyle: "italic"}}>Unknown</span>
+  } else if (props.naming.common_name) {
     nameElement = props.naming.common_name
   } else {
     nameElement = <>
@@ -25,7 +27,7 @@ function ObservationCard(props) {
       { !showPlaceholder || <div className="image-placeholder" /> }
       { props.photos.length === 0 ? <span className="no-image">No image</span> :
        <img
-          alt={props.naming.name + " image"}
+          alt="observation image"
           style={{display: loaded ? "inline-block" : "none"}}
           src={props.photos[0]}
           onLoad={() => {setLoaded(true)}}

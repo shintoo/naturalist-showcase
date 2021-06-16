@@ -71,7 +71,7 @@ function getObservations(username, page, perPage, setTotalResults) {
         return resp.results.map(r => { 
           return {
             id: r.id,
-            naming: {
+            naming: r.taxon && {
               common_name: r.taxon.preferred_common_name,
               rank: r.taxon.rank,
               name: r.taxon.name,

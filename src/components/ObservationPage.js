@@ -73,8 +73,10 @@ function ObservationPage({ show, setShow, observationId }) {
 
   let wikipedia_summary
   let wikipedia_url
+  let common_name = "Unknown"
 
-  if (observation) {
+  if (observation && observation.taxon) {
+    common_name = observation.taxon.common_name
     // If our wikipedia information is from an ancestor taxa (or not)
     if (observation.ancestor_summary) {
       wikipedia_url = observation.ancestor_url
@@ -102,7 +104,7 @@ function ObservationPage({ show, setShow, observationId }) {
       { observation !== null  && !showLoadingSpinner ? <>
         <div style={carouselStyles} className="carousel">
           <img
-            alt={observation.taxon.preferred_common_name + " image"}
+            alt="observation image"
             src={observation.photos[imageIndex].url.replace("square", "medium")}
             onClick={nextImage}
             onLoad={onLoad}/>
@@ -116,12 +118,13 @@ function ObservationPage({ show, setShow, observationId }) {
           }
         </div>          
         <div className="details">
-           <span id="common-name">{observation.taxon.preferred_common_name} </span>
-           <div>
+          <span id="common-name">{common_name} </span>
+          {taxon && <div>
              <span id="rank">{taxon.rank} </span>
              <span id="name">{taxon.name} </span>
            </div>
-           { wikipedia_summary &&
+          }
+          { wikipedia_summary &&
            <p id="wikipedia-summary">
              {wikipedia_summary} &nbsp;
              <a href={wikipedia_url}>
@@ -133,13 +136,13 @@ function ObservationPage({ show, setShow, observationId }) {
                /> 
              </a>
            </p>
-           }
-           <a id="inat-link" href={observation.uri}>
-             <img width="14" height="14" src={iNatIcon} />
-             observed
-             {date && " on " + date.month + "-" + date.day + "-" + date.year}
-             {" by " + observation.user.name}
-           </a>
+          }
+          <a id="inat-link" href={observation.uri}>
+            <img width="14" height="14" src={iNatIcon} />
+            observed
+            {date && " on " + date.month + "-" + date.day + "-" + date.year}
+            {" by " + observation.user.name}
+          </a>
         </div>
        </>:<>
         <div className="image-placeholder" />
@@ -205,6 +208,9 @@ async function loadObservation(response) {
   let finalObservation = null
 
   if (response.results) {
+    if (!response.results[0].taxon)
+      return response.results[0]
+
     if (response.results[0].taxon.wikipedia_url
         && !response.results[0].taxon.wikipedia_summary.includes("may refer to")
         && response.results[0].taxon.wikipedia_summary.length > 8) // filter "..." etc
