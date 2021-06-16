@@ -91,7 +91,7 @@ hr {
 .carousel {
   position: relative;
   box-sizing: border-box;
-  transition: all 0.5s ease-in-out;   
+  transition: all 0.5s ease-in-out;
 }
 
 .carousel > img { 
@@ -303,7 +303,6 @@ a {
 .observation-card:hover {
   box-shadow: 1px 25px 25px 0 rgb(100, 100, 100, 0.3);
   transform: translateY(-20px);
-  transition: all 0.3s;
 }
 
 .observation-card > img { 
@@ -348,7 +347,7 @@ img {
   height: 20px;
   border-radius: 5px;
   background-color: #e1fad2;
-  animation: loading-flip 1s infinite ease-in-out; 
+  animation: loading-scaling 1s infinite ease-in-out;
 }
 
 .observation-page > .image-placeholder {
@@ -385,7 +384,8 @@ img {
   50% {background-color: rgba(0, 0, 0, 0.3)}
   100% {background-color: rgba(0, 0, 0, 0.2)}
 }
-@keyframes loading-flip {
+
+@keyframes loading-scaling {
   0% {scale: 0.8}
   50% {scale: 1}
   100% {scale: 0.8}
@@ -474,3 +474,11 @@ a:hover {
     align-items: center;
 }
 
+.loading-spinner {
+   animation: rotate 1s infinite cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes rotate {
+  from { transform: rotate(0); }
+  to { transform: rotate(359deg); }
+}

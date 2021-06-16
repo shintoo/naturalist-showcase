@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 import ObservationCard from "./ObservationCard"
+import loadingSpinner from "../img/loading.png"
 
 const observationsEndpoint = "https://api.inaturalist.org/v1/observations"
 
@@ -34,7 +35,11 @@ function ObservationGrid(props) {
   )
 
   if (observations.length === 0)
-    return <span className="loading">loading...</span>
+    return (
+      <span className="loading">
+        <img className="loading-spinner" width="64" height="64" src={loadingSpinner} />
+      </span>
+    )
 
   if (observations[0] === -1)
     return <span className="loading">No observations found for {props.username}</span>
