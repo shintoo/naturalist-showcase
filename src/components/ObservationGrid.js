@@ -61,7 +61,13 @@ function getObservations(username, page, perPage, setTotalResults) {
     + "&page=" + page
     + "&per_page=" + perPage
     + "&order=desc&order_by=created_at")
-    .then(resp => resp.json())
+    .then(resp => {
+      if (!resp.ok) {
+        setTotalResults(0)
+        return { results: null }
+      }
+      return resp.json()
+    })
     .then(resp => {
         console.log(resp.total_results)
         if (!resp.results)
