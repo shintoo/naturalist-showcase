@@ -9,6 +9,7 @@ function ObservationGrid(props) {
   const numPerPage = 12
 
   useEffect(() => {
+    setObservations([])
     getObservations(props.username, props.page, numPerPage, setTotalResults)
       .then(os => setObservations(os))
   }, [props.username, props.page])
@@ -35,6 +36,9 @@ function ObservationGrid(props) {
   if (observations.length === 0)
     return <span className="loading">loading...</span>
 
+  if (observations[0] === -1)
+    return <span className="loading">No observations found for {props.username}</span>
+
   return (
     <div style={styles} className="observationgrid-container">
       {observationCards ||
@@ -56,7 +60,7 @@ function getObservations(username, page, perPage, setTotalResults) {
     .then(resp => {
         console.log(resp.total_results)
         if (!resp.results)
-          return null;
+          return [-1];
 
         setTotalResults(resp.total_results)
         return resp.results.map(r => { 
