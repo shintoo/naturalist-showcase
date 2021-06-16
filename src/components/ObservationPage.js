@@ -76,7 +76,7 @@ function ObservationPage({ show, setShow, observationId }) {
   let common_name = "Unknown"
 
   if (observation && observation.taxon) {
-    common_name = observation.taxon.common_name
+    common_name = observation.taxon.preferred_common_name
     // If our wikipedia information is from an ancestor taxa (or not)
     if (observation.ancestor_summary) {
       wikipedia_url = observation.ancestor_url
