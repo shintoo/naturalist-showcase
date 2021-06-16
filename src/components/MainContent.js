@@ -29,7 +29,7 @@ function MainContent() {
 function Homepage() {
   let { u }                               = useParams()
   let [ username, setUsername ]           = useState(u || "shintoo")
-  let [ buffer, setBuffer ]               = useState(null)
+  let [ buffer, setBuffer ]               = useState("")
   let [ editingBuffer, setEditingBuffer ] = useState(false)
   let [ page, setPage ]                   = useState(1)
   let [ finalPage, setFinalPage ]         = useState(1)
@@ -46,7 +46,7 @@ function Homepage() {
       if (event.key === "Enter") {
           setUsername(buffer)
           setEditingBuffer(false)
-          setBuffer(null)
+          setBuffer("")
           setPage(1)
       }
   }
