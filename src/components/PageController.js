@@ -5,8 +5,15 @@ function PageController(props) {
     return null
   }
 
+  const styles = {
+    transform: props.hide ? "translateX(-50vw)" : "none",
+    opacity: props.hide ? "0" : "1",
+    visibility: props.hide ? "hidden": ""
+  }
+
+
   return (
-    <div className="page-controller">
+    <div style={styles} className="page-controller">
       <button
          className="page-button"
          disabled={props.page === 1}

@@ -17,6 +17,8 @@ function ObservationPage({ show, setShow, observationId }) {
     if (!show || !observationId)
       return;
 
+    document.body.classList.add("modal-open")
+
     setShowLoadingSpinner(true)
     fetch(observationEndpoint + observationId)
       .then(resp => resp.json())
@@ -63,6 +65,7 @@ function ObservationPage({ show, setShow, observationId }) {
 
   const back = () => {
     setShow(false)
+    document.body.classList.remove("modal-open")
     setTimeout(_ => {
       setImageIndex(0)
       setCarouselStyles({ ...carouselStyles, scale: "1" })

@@ -84,7 +84,12 @@ function Homepage() {
         show={showObservationPage}
         setShow={setShowObservationPage}
       />
-      <PageController page={page} setPage={setPage} finalPage={finalPage}/>
+      <PageController
+        page={page}
+        setPage={setPage}
+        finalPage={finalPage}
+        hide={showObservationPage}
+      />
     </div>
   )
 }

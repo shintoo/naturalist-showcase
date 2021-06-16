@@ -9,11 +9,16 @@ html, body {
   background-color: #FAFFF7;
 }
 
+body.modal-open {
+  padding-right: 12px;
+  height: 100vh;
+  overflow-y: hidden;
+}
+
 .loading {
   text-align: center;
-  font-family: Merriweather;
   color: #4f3816;
-  margin-top: 30vh;
+  margin-top: 35vh;
   margin-bottom: 35vh;
   font-weight: lighter;
   display: block;
@@ -423,6 +428,7 @@ a:hover {
   justify-content: center;
   align-items: center;
   margin-top: 1em;
+  transition: all 0.5s ease-in-out;
 }
 
 .page-number {
