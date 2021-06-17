@@ -11,8 +11,6 @@ An alternative iNaturalist observation browser, built to showcase your work.
 
 **Filters** are available too, such as filtering for plants, animals, or birds.
 
-![gif](https://thecuriousleaflet.com/wp-content/uploads/2021/06/filters.gif)
-
 **Learn** about you or others' observations, with smart descriptions provided by wikipedia. Summaries from pages
 of the next most specific taxon are provided if there is no wikipedia page for the observation's taxon.
 
