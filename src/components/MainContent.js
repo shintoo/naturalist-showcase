@@ -74,7 +74,12 @@ function Homepage() {
           </span>
       }
       <div style={{display: "flex"}}>
-       <FilterSelector hide={showObservationPage} filters={filters} setFilters={setFilters} />
+       <FilterSelector
+        hide={showObservationPage}
+        filters={filters}
+        setFilters={setFilters}
+        resetPage={() => setPage(1)}
+       />
        <ObservationGrid
         username={username}
         filters={filters}
