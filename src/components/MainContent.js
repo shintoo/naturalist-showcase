@@ -36,7 +36,7 @@ function Homepage() {
   let [ finalPage, setFinalPage ]         = useState(1)
   let [ showObservationPage, setShowObservationPage] = useState(false)
   let [ observationId, setObservationId ] = useState(null)
-  let [ filters, setFilters ] = useState([47126])
+  let [ filters, setFilters ] = useState([])
 
   const handleChange = (event) => {
       setBuffer(event.target.value)
