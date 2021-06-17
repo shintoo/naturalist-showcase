@@ -1,4 +1,4 @@
-# Naturalist Showcase
+![Naturalist Showcase](https://thecuriousleaflet.com/wp-content/uploads/2021/06/logo-text-web.png)
 
 An alternative iNaturalist observation browser, built to showcase your work.
 
