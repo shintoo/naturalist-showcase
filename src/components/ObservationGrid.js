@@ -11,9 +11,9 @@ function ObservationGrid(props) {
 
   useEffect(() => {
     setObservations([])
-    getObservations(props.username, props.page, numPerPage, setTotalResults)
+    getObservations(props.username, props.page, numPerPage, props.filters, setTotalResults)
       .then(os => setObservations(os))
-  }, [props.username, props.page])
+  }, [props.username, props.page, props.filters])
 
   useEffect(() => props.setFinalPage(Math.ceil(totalResults / numPerPage)), [observations])
 
@@ -53,11 +53,13 @@ function ObservationGrid(props) {
   )
 }
 
-function getObservations(username, page, perPage, setTotalResults) {
+function getObservations(username, page, perPage, taxonFilters, setTotalResults) {
   // Builds a list of { name: "Eastern Cottontail", photos: ["https://...", ] }
   return fetch(
     observationsEndpoint
     + "?user_login=" + username
+    + "&photos=true"
+    + "&taxon_id=" + taxonFilters.join(",")
     + "&page=" + page
     + "&per_page=" + perPage
     + "&order=desc&order_by=created_at")

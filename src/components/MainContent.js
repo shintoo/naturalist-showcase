@@ -8,6 +8,7 @@ import {
 
 import ObservationGrid from "./ObservationGrid"
 import ObservationPage from "./ObservationPage"
+import FilterSelector from "./FilterSelector"
 import PageController from "./PageController"
 import pencil from "../img/pencil.svg"
 
@@ -35,6 +36,7 @@ function Homepage() {
   let [ finalPage, setFinalPage ]         = useState(1)
   let [ showObservationPage, setShowObservationPage] = useState(false)
   let [ observationId, setObservationId ] = useState(null)
+  let [ filters, setFilters ] = useState([47126])
 
   const handleChange = (event) => {
       setBuffer(event.target.value)
@@ -71,14 +73,18 @@ function Homepage() {
             <img alt="edit" id="pencil" width="16" height="16" src={pencil} />
           </span>
       }
-      <ObservationGrid
+      <div style={{display: "flex"}}>
+       <FilterSelector hide={showObservationPage} filters={filters} setFilters={setFilters} />
+       <ObservationGrid
         username={username}
+        filters={filters}
         page={page}
         setFinalPage={setFinalPage}
         setObservationId={setObservationId}
         hide={showObservationPage}
         setHide={setShowObservationPage}
-      />
+       />
+      </div>
       <ObservationPage
         observationId={observationId}
         show={showObservationPage}
