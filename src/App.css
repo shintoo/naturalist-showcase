@@ -6,7 +6,7 @@ html {
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #FAFFF7;
+  background-color: #FDFFFC;
 }
 
 body.modal-open {
@@ -18,7 +18,7 @@ body.modal-open {
 .loading {
   width: 100%;
   text-align: center;
-  color: #4f3816;
+  color: #24190A;
   margin-top: 31vh;
   margin-bottom: 35vh;
   font-weight: lighter;
@@ -47,7 +47,7 @@ body.modal-open {
 h1 {
   text-align: center;
   text-transform: lowercase;
-  color: #4f3816;
+  color: #24190A;
   font-size: 2.5em;
   letter-spacing: 0.2em;
   font-weight: lighter;
@@ -55,10 +55,10 @@ h1 {
 
 hr {
   width: 50%;
-  border-color: #4f3816;
+  border-color: #24190A;
   border-width: 1px;
   border-top: none;
-  color: #4f3816;
+  color: #24190A;
 }
 
 /***** Observation page ********/
@@ -217,15 +217,16 @@ a {
 }
 
 .username, .username-input {
-  margin-bottom: 1em;
-  color: #4f3816;
+  margin-bottom: 2em;
+  padding-left: 56px;
+  color: #24190A;
   display: block;
   width: 100%;
   text-align: center;
   font-size: 1.2em;
   border-style: none;
-  border-color: #FAFFF7;
-  background-color: #FAFFF7; 
+  border-color: #FDFFFC;
+  background-color: #FDFFFC;
   font-family: Merriweather;
   box-sizing: border-box;
   outline: none;
@@ -233,12 +234,12 @@ a {
 
 #pencil {
   width: 0.9em;
-  color: #4f3816;
+  color: #24190A;
 }
 
 .user-not-found {
     text-align: center;
-    color: #4f3816;
+    color: #24190A;
     font-size: 1.5em;
     font-style: italic;
 }
@@ -435,13 +436,13 @@ a:hover {
 
 .page-number {
   margin: 1em;
-  color: #4f3816;
+  color: #24190A;
 }
 
 .page-button {
    border: none;
    padding: 1em;
-   color: #4f3816;
+   color: #24190A;
 }
 
 .page-button:disabled {
