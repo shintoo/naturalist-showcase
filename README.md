@@ -2,8 +2,6 @@
 
 An alternative iNaturalist observation browser, built to showcase your work.
 
-![screenshot](https://thecuriousleaflet.com/wp-content/uploads/2021/06/ns-screenshot.png)
-
 **Browse** you and your friends' iNaturalist observations with a more lightweight and accessible interface.
   Edit the iNaturalist username to load observations from other users (no login needed).
 
