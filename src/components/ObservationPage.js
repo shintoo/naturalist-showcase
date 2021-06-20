@@ -17,8 +17,6 @@ function ObservationPage({ show, setShow, observationId }) {
     if (!show || !observationId)
       return;
 
-    document.body.classList.add("modal-open")
-
     setShowLoadingSpinner(true)
     fetch(observationEndpoint + observationId)
       .then(resp => resp.json())
@@ -43,7 +41,7 @@ function ObservationPage({ show, setShow, observationId }) {
   const nextImage = () => {
     // Typical case - move to next image
     if (imageIndex !== observation.photos.length - 1) {
-      setCarouselStyles({ ...carouselStyles, scale: "0.97" })
+      setCarouselStyles({ ...carouselStyles, transform: "scale(0.97)" })
       setLoadedCurrent(false)
       setImageIndex(imageIndex+1)
       return
@@ -54,12 +52,12 @@ function ObservationPage({ show, setShow, observationId }) {
       return
 
     // Set to first image iff not on last image and more than 1 image
-    setCarouselStyles({ ...carouselStyles, scale: "0.97" })
+    setCarouselStyles({ ...carouselStyles, transform: "scale(0.97)" })
     setImageIndex(0)
   }
 
   const onLoad = () => {
-    setTimeout(_ => setCarouselStyles({ ...carouselStyles, scale: "1"}), 100)
+    setTimeout(_ => setCarouselStyles({ ...carouselStyles, transform: "scale(1)"}), 100)
     setLoadedCurrent(true)
   }
 
@@ -68,7 +66,7 @@ function ObservationPage({ show, setShow, observationId }) {
     document.body.classList.remove("modal-open")
     setTimeout(_ => {
       setImageIndex(0)
-      setCarouselStyles({ ...carouselStyles, scale: "1" })
+      setCarouselStyles({ ...carouselStyles, transform: "scale(1)" })
     }, 500) // Transition time for fade out
   }
 
