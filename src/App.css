@@ -442,7 +442,13 @@ a:hover {
   padding: 5%;
 }
 
+.filter-container {
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+
 .filter-button {
+  position: relative;
   border-radius: 50%;
   border-style: solid;
   margin-bottom: 10px;
@@ -452,9 +458,24 @@ a:hover {
   height: 24px;
 }
 
-.filter-button:hover {
+.filter-container:hover {
   transform: scale(1.2);
 }
+
+.filter-container:hover .filter-tip {
+  opacity: 1.0;
+}
+
+.filter-tip {
+  opacity: 0.0;
+  position: absolute;
+  top: 0;
+  right: 2em;
+  font-size: 0.8em;
+  padding: 5px;
+  transition: opacity 0.2s;
+}
+
 
 .filters-container {
   transition: all 0.5s ease-in-out;
