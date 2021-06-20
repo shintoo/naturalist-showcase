@@ -177,13 +177,14 @@ hr {
 }
 
 #wikipedia-summary {
-    text-align: left;
-    line-height: 1.75em;
-    align-content: center;
-    padding: 2em 0 2em 0;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 80%;
+  font-family: Roboto, Arial, sans-serif;
+  text-align: left;
+  line-height: 1.75em;
+  align-content: center;
+  padding: 2em 0 2em 0;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80%;
 }
 
 #wikipedia-summary > a {
